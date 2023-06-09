@@ -42,12 +42,12 @@ jobs:
       - name: Setup environment (2)
         run: sudo npm install -g jsdoc
       - name: Build
-        run: jsdoc -p -d jsdoc/ javascript/
+        run: jsdoc -p -d javascript/jsdoc/ javascript/
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
           name: build-jsdoc
-          path: jsdoc/
+          path: javascript/jsdoc/
 
   build-sphinx:
     name: Build - Sphinx
