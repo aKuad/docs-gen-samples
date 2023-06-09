@@ -63,22 +63,16 @@ jobs:
           python-version: '3.10'
       - name: Setup environment (2)
         run: pip install sphinx
-      - name: Sphinx available check
-        run: sphinx-build --help
-      - name: cd check
+      - name: Build
         run: |
-          ls
-          cd javascript
-          ls
-      - name: cd check 2
-        run: ls
-      # - name: Build
-      #   run: jsdoc -p -d jsdoc/ javascript/
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: build-jsdoc
-      #     path: jsdoc/
+          cd python/docs
+          sphinx-apidoc -f -P -o ./ ../
+          sphinx-build ./ ./_build/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: build-sphinx
+          path: python/docs/_build/
 
   # deploy:
   #   environment:
