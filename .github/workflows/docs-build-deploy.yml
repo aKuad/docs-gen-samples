@@ -15,6 +15,22 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  build-doxygen:
+    name: Build - Doxygen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Source checkout
+        uses: actions/checkout@v3
+      - name: Setup environment
+        run: sudo apt install -y doxygen
+      - name: Build
+        run: sh -c "cd c-cpp; doxygen"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: build-doxygen
+          path: c-cpp/doxygen/html/
+
   build-jsdoc:
     name: Build - JSDoc
     runs-on: ubuntu-latest
