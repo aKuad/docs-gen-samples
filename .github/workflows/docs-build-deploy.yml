@@ -63,6 +63,13 @@ jobs:
         run: pip install sphinx
       - name: Sphinx available check
         run: sphinx-build --help
+      - name: cd check
+        run: |
+          ls
+          cd python
+          ls
+      - name: cd check 2
+        run: ls
       # - name: Build
       #   run: jsdoc -p -d jsdoc/ javascript/
       # - name: Upload artifact
