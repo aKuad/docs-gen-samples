@@ -24,7 +24,9 @@ jobs:
       - name: Setup environment
         run: sudo apt install -y doxygen
       - name: Build
-        run: sh -c "cd c-cpp; doxygen"
+        run: |
+          cd c-cpp
+          doxygen
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
