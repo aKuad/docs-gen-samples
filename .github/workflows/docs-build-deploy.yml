@@ -25,8 +25,7 @@ jobs:
         uses: actions/setup-node@v3
       - run: sudo npm install -g jsdoc
       - name: Build
-        run: ls
-      # run: jsdoc -p -d docs javascript
+        run: jsdoc -p -d jsdoc/ javascript/
       # - name: Upload artifact
       #   uses: actions/upload-artifact@v1
 
