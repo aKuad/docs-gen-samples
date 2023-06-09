@@ -21,9 +21,6 @@ jobs:
     steps:
       - name: Source checkout
         uses: actions/checkout@v3.5.2
-        with:
-          sparse-checkout: |
-            javascript
       - name: Setup environment
         uses: actions/setup-node@v3
       - run: sudo npm install -g jsdoc
