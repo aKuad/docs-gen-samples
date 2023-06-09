@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   build-jsdoc:
+    name: Build - JSDoc
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
