@@ -49,6 +49,26 @@ jobs:
           name: build-jsdoc
           path: jsdoc/
 
+  build-sphinx:
+    name: Build - Sphinx
+    runs-on: ubuntu-latest
+    steps:
+      - name: Source checkout
+        uses: actions/checkout@v3
+      - name: Setup environment (1)
+        uses: actions/setup-python@v4
+      - name: Setup environment (2)
+        run: pip install sphinx
+      - name: Sphinx available check
+        run: sphinx-build --help
+      # - name: Build
+      #   run: jsdoc -p -d jsdoc/ javascript/
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: build-jsdoc
+      #     path: jsdoc/
+
   # deploy:
   #   environment:
   #     name: github-pages
