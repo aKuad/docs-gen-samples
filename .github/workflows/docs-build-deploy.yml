@@ -66,7 +66,7 @@ jobs:
       - name: cd check
         run: |
           ls
-          cd python
+          cd javascript
           ls
       - name: cd check 2
         run: ls
