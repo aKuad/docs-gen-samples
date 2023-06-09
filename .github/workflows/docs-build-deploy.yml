@@ -26,8 +26,11 @@ jobs:
       - run: sudo npm install -g jsdoc
       - name: Build
         run: jsdoc -p -d jsdoc/ javascript/
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v1
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: build-jsdoc
+          path: jsdoc/
 
   # deploy:
   #   environment:
