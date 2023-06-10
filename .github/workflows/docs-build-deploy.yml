@@ -22,7 +22,7 @@ jobs:
       - name: Source checkout
         uses: actions/checkout@v3
       - name: Upload artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: index
           path: general-index/
@@ -40,7 +40,7 @@ jobs:
           cd c-cpp
           doxygen
       - name: Upload artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: build-doxygen
           path: c-cpp/doxygen/html/
@@ -58,7 +58,7 @@ jobs:
       - name: Build
         run: jsdoc -p -d javascript/jsdoc/ javascript/
       - name: Upload artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: build-jsdoc
           path: javascript/jsdoc/
@@ -81,7 +81,7 @@ jobs:
           sphinx-apidoc -f -P -o ./ ../
           sphinx-build ./ ./_build/
       - name: Upload artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: build-sphinx
           path: python/docs/_build/
