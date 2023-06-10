@@ -86,6 +86,38 @@ jobs:
           name: build-sphinx
           path: python/docs/_build/
 
+  prepare-artifact:
+    name: Setup artifact
+    runs-on: ubuntu-latest
+    needs: [prepare-index, build-doxygen, build-jsdoc, build-sphinx]
+    steps:
+      - name: Place artifact - index
+        uses: actions/download-artifact@v3
+        with:
+          name: index
+          path: .
+      - name: Place artifact - Doxygen
+        uses: actions/download-artifact@v3
+        with:
+          name: build-doxygen
+          path: doxygen
+      - name: Place artifact - JSDoc
+        uses: actions/download-artifact@v3
+        with:
+          name: build-jsdoc
+          path: jsdoc
+      - name: Place artifact - Sphinx
+        uses: actions/download-artifact@v3
+        with:
+          name: build-sphinx
+          path: sphinx
+      - name: Configure pages
+        uses: actions/configure-pages@v3
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: .
+
   # deploy:
   #   environment:
   #     name: github-pages
