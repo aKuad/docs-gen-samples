@@ -15,6 +15,18 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  prepare-index:
+    name: Prepare index page
+    runs-on: ubuntu-latest
+    steps:
+      - name: Source checkout
+        uses: actions/checkout@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: index
+          path: general-index/
+
   build-doxygen:
     name: Build - Doxygen
     runs-on: ubuntu-latest
