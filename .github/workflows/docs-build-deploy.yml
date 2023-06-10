@@ -95,7 +95,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: index
-          path: ~/
+          path: .
       - name: Place artifact - Doxygen
         uses: actions/download-artifact@v3
         with:
@@ -116,7 +116,7 @@ jobs:
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ~/
+          path: .
 
   # deploy:
   #   environment:
