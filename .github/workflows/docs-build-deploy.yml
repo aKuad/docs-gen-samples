@@ -58,7 +58,9 @@ jobs:
       - name: Setup environment (2)
         run: sudo npm install -g jsdoc
       - name: Build
-        run: jsdoc -p -d javascript/jsdoc/ javascript/
+        run: |
+          cd javascript
+          jsdoc -p -d jsdoc/ ./
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
