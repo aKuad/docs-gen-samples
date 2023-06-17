@@ -26,6 +26,7 @@ jobs:
         with:
           name: index
           path: general-index/
+          retention-days: 1
 
   build-doxygen:
     name: Build - Doxygen
@@ -44,6 +45,7 @@ jobs:
         with:
           name: build-doxygen
           path: c-cpp/doxygen/html/
+          retention-days: 1
 
   build-jsdoc:
     name: Build - JSDoc
@@ -62,6 +64,7 @@ jobs:
         with:
           name: build-jsdoc
           path: javascript/jsdoc/
+          retention-days: 1
 
   build-sphinx:
     name: Build - Sphinx
@@ -85,6 +88,7 @@ jobs:
         with:
           name: build-sphinx
           path: python/docs/_build/
+          retention-days: 1
 
   prepare-artifact:
     name: Setup artifact
@@ -117,6 +121,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: .
+          retention-days: 1
 
   deploy:
     name: Deploy to GitHub Pages
