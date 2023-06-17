@@ -82,14 +82,14 @@ jobs:
         run: pip install sphinx
       - name: Build
         run: |
-          cd python/docs
+          cd python/sphinx
           sphinx-apidoc -f -P -o ./ ../
           sphinx-build ./ ./_build/
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-sphinx
-          path: python/docs/_build/
+          path: python/sphinx/_build/
           retention-days: 1
 
   prepare-artifact:
