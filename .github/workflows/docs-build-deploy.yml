@@ -60,7 +60,7 @@ jobs:
       - name: Build
         run: |
           cd javascript
-          jsdoc -p -d jsdoc/ ./
+          jsdoc -p -d jsdoc/ index.md ./
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
