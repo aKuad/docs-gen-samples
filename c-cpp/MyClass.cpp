@@ -1,5 +1,5 @@
 /**
- * @file class.cpp
+ * @file MyClass.cpp
  *
  * @brief Source file description
  *
