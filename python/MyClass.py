@@ -4,15 +4,15 @@ Source file detail description
 
 """
 
-"""Class description
-
-Class detail description
-
-Attributes:
-  member (int): Member description
-
-"""
 class Class:
+  """Class description
+
+  Class detail description
+
+  Attributes:
+    member (int): Member description
+
+  """
   member: int = 2
 
   def func(arg: int):
