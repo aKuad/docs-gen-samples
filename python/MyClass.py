@@ -32,7 +32,7 @@ class Class:
       arg(int): Argument description
     
     Return:
-      Return description
+      int: Return description
 
     """
     return arg
