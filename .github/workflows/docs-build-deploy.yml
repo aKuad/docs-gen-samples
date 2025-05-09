@@ -68,6 +68,25 @@ jobs:
           path: javascript/jsdoc/
           retention-days: 1
 
+  build-denodoc:
+    name: Build - Deno Doc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Source checkout
+        uses: actions/checkout@v3
+      - name: Setup environment
+        uses: denoland/setup-deno@v2
+      - name: Build
+        run: |
+          cd javascript
+          deno doc --html --name="Web Intercom" --output="denodoc" --private *.js
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-denodoc
+          path: javascript/docs/
+          retention-days: 1
+
   build-sphinx:
     name: Build - Sphinx
     runs-on: ubuntu-latest
@@ -112,6 +131,11 @@ jobs:
         with:
           name: build-jsdoc
           path: jsdoc
+      - name: Place artifact - Deno Doc
+        uses: actions/download-artifact@v3
+        with:
+          name: build-denodoc
+          path: denodoc
       - name: Place artifact - Sphinx
         uses: actions/download-artifact@v3
         with:
