@@ -1,6 +1,6 @@
 /**
  * @file Source file description
- * 
+ *
  * @description
  * Source file detail description
  *
@@ -20,6 +20,6 @@
  * @param {number} arg Argument description
  * @returns Return description
  */
-function func(arg) {
+export function func(arg) {
   return arg;
 }

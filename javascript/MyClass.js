@@ -13,7 +13,7 @@
  * @description
  * Class detail description
  */
-class MyClass {
+export class MyClass {
   /**
    * @summary Member description
    *
