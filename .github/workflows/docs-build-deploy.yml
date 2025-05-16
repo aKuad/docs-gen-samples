@@ -79,7 +79,7 @@ jobs:
       - name: Build
         run: |
           cd javascript
-          deno doc --html --name="Web Intercom" --output="denodoc" --private *.js
+          deno doc --html --name="My Project" --output="denodoc" --private *.js
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
