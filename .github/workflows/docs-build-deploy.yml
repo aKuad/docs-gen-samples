@@ -15,17 +15,22 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  prepare-index:
+  build-index:
     name: Prepare index page
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
         uses: actions/checkout@v4
+      - name: Build index page
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: general-index
+          destination: _site
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: index
-          path: general-index/
+          path: _site
           retention-days: 1
 
   build-doxygen:
@@ -114,7 +119,7 @@ jobs:
   prepare-artifact:
     name: Setup artifact
     runs-on: ubuntu-latest
-    needs: [prepare-index, build-doxygen, build-jsdoc, build-denodoc, build-sphinx]
+    needs: [build-index, build-doxygen, build-jsdoc, build-denodoc, build-sphinx]
     steps:
       - name: Place artifact - index
         uses: actions/download-artifact@v4
