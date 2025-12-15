@@ -20,14 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Build index page
         uses: actions/jekyll-build-pages@v1
         with:
           source: general-index
           destination: _site
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: index
           path: _site
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup environment
         run: sudo apt install -y doxygen
       - name: Build
@@ -46,7 +46,7 @@ jobs:
           cd c-cpp
           doxygen
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: build-doxygen
           path: c-cpp/doxygen/html/
@@ -57,9 +57,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup environment (1)
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
       - name: Setup environment (2)
         run: sudo npm install -g jsdoc
       - name: Build
@@ -67,7 +67,7 @@ jobs:
           cd javascript
           jsdoc -p -d jsdoc/ index.md ./
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: build-jsdoc
           path: javascript/jsdoc/
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup environment
         uses: denoland/setup-deno@v2
       - name: Build
@@ -86,7 +86,7 @@ jobs:
           cd javascript
           deno doc --html --name="My Project" --output="denodoc" --private *.js
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: build-denodoc
           path: javascript/denodoc/
@@ -97,9 +97,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup environment (1)
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.10'
       - name: Setup environment (2)
@@ -110,7 +110,7 @@ jobs:
           sphinx-apidoc -f -P -o ./ ../
           sphinx-build ./ ./_build/
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: build-sphinx
           path: python/sphinx/_build/
@@ -122,34 +122,34 @@ jobs:
     needs: [build-index, build-doxygen, build-jsdoc, build-denodoc, build-sphinx]
     steps:
       - name: Place artifact - index
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: index
           path: .
       - name: Place artifact - Doxygen
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: build-doxygen
           path: doxygen
       - name: Place artifact - JSDoc
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: build-jsdoc
           path: jsdoc
       - name: Place artifact - Deno Doc
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: build-denodoc
           path: denodoc
       - name: Place artifact - Sphinx
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: build-sphinx
           path: sphinx
       - name: Configure pages
         uses: actions/configure-pages@v5
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: .
           retention-days: 1
