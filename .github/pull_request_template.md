@@ -1,0 +1,1 @@
+Close #*target issue id*
