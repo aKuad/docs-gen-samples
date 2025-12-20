@@ -19,7 +19,7 @@ def func(arg: int):
 
   Args:
     arg(int): Argument description
-  
+
   Return:
     int: Return description
 
