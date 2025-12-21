@@ -2,17 +2,8 @@ name: Page deploy testing
 
 on:
   push:
-    branches: ["main"]
+    branches: '**'
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build-index:
@@ -156,11 +147,17 @@ jobs:
 
   deploy:
     name: Deploy to GitHub Pages
+    # Deployment for only main branch, build steps are for all
+    if: github.ref == 'refs/heads/main'
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: [prepare-artifact]
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Deploy
         id: deployment
