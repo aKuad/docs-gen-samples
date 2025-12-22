@@ -30,7 +30,7 @@ class Class:
 
     Args:
       arg(int): Argument description
-    
+
     Return:
       int: Return description
 

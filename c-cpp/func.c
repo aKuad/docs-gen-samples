@@ -14,7 +14,7 @@
  *
  * @details
  * Function detail description
- * 
+ *
  * Example:
  *
  * @code
