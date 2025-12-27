@@ -30,12 +30,10 @@ jobs:
     steps:
       - name: Source checkout
         uses: actions/checkout@v6
-      - name: Setup environment
-        run: sudo apt install -y doxygen
       - name: Build
         run: |
           cd c-cpp
-          doxygen
+          docker run --rm -v ./:/github/workspace -w /github/workspace ghcr.io/doxygen/doxygen:Release_1_15_0
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
