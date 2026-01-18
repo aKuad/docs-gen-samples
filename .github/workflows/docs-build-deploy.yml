@@ -20,6 +20,7 @@ jobs:
           destination: _site
       - name: Path adjustment of Jekyll generated
         run: |
+          sudo chmod 777 _site
           cd _site
           sed -e 's/"\/docs-gen-samples/"./g' index.html | sed -e 's/akuad.github.io\/docs-gen-samples\//docs-gen-samples.pages.dev\//g' > index-tmp
           rm index.html
