@@ -18,6 +18,12 @@ jobs:
         with:
           source: general-index
           destination: _site
+      - name: Path adjustment of Jekyll generated
+        run: |
+          cd _site
+          sed -e 's/"\/docs-gen-samples/"./g' index.html | sed -e 's/akuad.github.io\/docs-gen-samples\//docs-gen-samples.pages.dev\//g' > index-tmp
+          rm index.html
+          mv index-tmp index.html
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
