@@ -162,7 +162,8 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name='docs-gen-samples' --branch='${{ github.ref_name }}' --commit-hash='${{ github.sha }}'
+          command: pages deploy . --project-name='docs-gen-samples' --branch='${{ github.head_ref || github.ref_name }}' --commit-hash='${{ github.sha }}'
+          #                   head_ref for pull request, ref_name for other cases ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Idiom to use right value when left value is falsy
 
       # Report a preview URL
       - name: Report preview URL
