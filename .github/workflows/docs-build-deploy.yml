@@ -170,9 +170,4 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr comment ${{ github.event.pull_request.html_url }} -F - << EOF
-          Preview ready:
-
-          <${{ steps.deploy-step.outputs.deployment-url }}>
-          EOF
+        run: 'gh pr comment ${{ github.event.pull_request.html_url }} -b "Preview ready: <${{ steps.deploy-step.outputs.deployment-url }}>"'
