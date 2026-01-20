@@ -113,7 +113,7 @@ jobs:
           path: python/sphinx/_build/
           retention-days: 1
 
-  prepare-artifact:
+  artifact-gather-and-deploy:
     name: Setup artifact
     runs-on: ubuntu-latest
     permissions:
