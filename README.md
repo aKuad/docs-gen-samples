@@ -4,7 +4,7 @@
 
 There are source code document generator tools samples.
 
-Available on GitHub Pages: <https://akuad.github.io/docs-gen-samples/>
+Available on GitHub Pages: <https://docs-gen-samples.pages.dev/>
 
 ## Improve this repository
 
