@@ -1,4 +1,4 @@
-name: Page deploy testing
+name: Document build and deployment
 
 on:
   push:
