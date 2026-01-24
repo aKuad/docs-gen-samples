@@ -1,8 +1,9 @@
-name: Page deploy testing
+name: Document build and deployment
 
 on:
   push:
     branches: '**'
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -17,6 +18,13 @@ jobs:
         with:
           source: general-index
           destination: _site
+      - name: Path adjustment of Jekyll generated
+        run: |
+          sudo chmod 777 _site
+          cd _site
+          sed -e 's/"\/docs-gen-samples/"./g' index.html | sed -e 's/akuad.github.io\/docs-gen-samples\//docs-gen-samples.pages.dev\//g' > index-tmp
+          rm index.html
+          mv index-tmp index.html
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
@@ -105,9 +113,13 @@ jobs:
           path: python/sphinx/_build/
           retention-days: 1
 
-  prepare-artifact:
+  artifact-gather-and-deploy:
     name: Setup artifact
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      deployments: write
     needs: [build-index, build-doxygen, build-jsdoc, build-denodoc, build-sphinx]
     steps:
       - name: Place artifact - index
@@ -135,28 +147,27 @@ jobs:
         with:
           name: build-sphinx
           path: sphinx
-      - name: Configure pages
-        uses: actions/configure-pages@v5
-      - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v4
+      - name: Upload finally artifact
+        uses: actions/upload-artifact@v6
         with:
+          name: finally-artifact
           path: .
           retention-days: 1
 
-  deploy:
-    name: Deploy to GitHub Pages
-    # Deployment for only main branch, build steps are for all
-    if: github.ref == 'refs/heads/main'
+      # Deploy for main branch (as production) and pull request (as preview)
+      - name: Deploy to Cloudflare Pages
+        if: github.ref_name == 'main' || github.event_name == 'pull_request'
+        id: deploy-step
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy . --project-name='docs-gen-samples' --branch='${{ github.head_ref || github.ref_name }}' --commit-hash='${{ github.sha }}'
+          #                   head_ref for pull request, ref_name for other cases ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Idiom to use right value when left value is falsy
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: [prepare-artifact]
-    permissions:
-      pages: write
-      id-token: write
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      # Report a preview URL
+      - name: Report preview URL
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: 'gh pr comment ${{ github.event.pull_request.html_url }} -b "Preview ready: <${{ steps.deploy-step.outputs.deployment-url }}>"'
