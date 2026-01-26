@@ -1,0 +1,27 @@
+name: GitHub Pages redirect page deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    name: Artifact preparing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Source checkout
+        uses: actions/checkout@v6
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: github-pages-redirect
+
+  deploy:
+    name: Pages deployment
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+    needs: [prepare]
+    steps:
+      - name: Deployment
+        uses: actions/deploy-pages@v4

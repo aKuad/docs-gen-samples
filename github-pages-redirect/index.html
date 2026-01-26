@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+    <script>
+      window.addEventListener("load", () => {
+        // Convert to new URL
+        const url = new URL(location.href);
+        url.host = "docs-gen-samples.pages.dev";
+        url.pathname = url.pathname.slice("/docs-gen-samples".length);  // Cut a part of path
+
+        const new_url_view = document.getElementById("new-url-link");
+        new_url_view.innerText = url.href;
+        new_url_view.href      = url.href;
+
+        setTimeout(() => {
+          location.href = url.href;
+        }, 5000);
+      });
+    </script>
+    <title>URL changed</title>
+  </head>
+
+  <body>
+    <h1>URL changed</h1>
+    <p>This URL is old. Redirect to the new URL at 5 sec.</p>
+    <p>New URL: <a id="new-url-link" href=""></a></p>
+  </body>
+</html>
