@@ -22,7 +22,10 @@ jobs:
         run: |
           sudo chmod 777 _site
           cd _site
-          sed -e 's/"\/docs-gen-samples/"./g' index.html | sed -e 's/akuad.github.io\/docs-gen-samples\//docs-gen-samples.pages.dev\//g' > index-tmp
+          sed -e 's/"\/docs-gen-samples/"./g' index.html | \
+            sed -e 's/akuad.github.io\/docs-gen-samples\//docs-gen-samples.pages.dev\//g' | \
+            sed -e 's/pages.github.com/pages.cloudflare.com/g' | \
+            sed -e 's/GitHub Pages/Cloudflare Pages/g' > index-tmp
           rm index.html
           mv index-tmp index.html
       - name: Upload artifact
