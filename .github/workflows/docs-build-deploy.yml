@@ -119,6 +119,9 @@ jobs:
   artifact-gather-and-deploy:
     name: Setup artifact
     runs-on: ubuntu-latest
+    environment:
+      name: cloudflare-pages
+      url: ${{ steps.deploy-step.outputs.deployment-url }}
     permissions:
       contents: read
       pull-requests: write
