@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-index:
-    name: Prepare index page
+    name: Build - Index page
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
@@ -117,7 +117,7 @@ jobs:
           retention-days: 1
 
   artifact-gathering:
-    name: Setup artifact
+    name: Artifact gathering
     runs-on: ubuntu-latest
     needs: [build-index, build-doxygen, build-jsdoc, build-denodoc, build-sphinx]
     steps:
