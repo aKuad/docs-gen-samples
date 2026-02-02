@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-index:
-    name: Prepare index page
+    name: Build - Index page
     runs-on: ubuntu-latest
     steps:
       - name: Source checkout
@@ -116,13 +116,9 @@ jobs:
           path: python/sphinx/_build/
           retention-days: 1
 
-  artifact-gather-and-deploy:
-    name: Setup artifact
+  artifact-gathering:
+    name: Artifact gathering
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      deployments: write
     needs: [build-index, build-doxygen, build-jsdoc, build-denodoc, build-sphinx]
     steps:
       - name: Place artifact - index
@@ -157,9 +153,27 @@ jobs:
           path: .
           retention-days: 1
 
+  deployment:
+    name: Deployment
+    if: github.ref_name == 'main' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: cloudflare-pages
+      url: ${{ steps.deploy-step.outputs.deployment-url }}
+    permissions:
+      contents: read
+      pull-requests: write
+      deployments: write
+    needs: [artifact-gathering]
+    steps:
+      - name: Place gathered artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: finally-artifact
+          path: .
+
       # Deploy for main branch (as production) and pull request (as preview)
       - name: Deploy to Cloudflare Pages
-        if: github.ref_name == 'main' || github.event_name == 'pull_request'
         id: deploy-step
         uses: cloudflare/wrangler-action@v3
         with:

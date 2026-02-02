@@ -18,6 +18,9 @@ jobs:
   deploy:
     name: Pages deployment
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy-step.outputs.page_url }}
     permissions:
       contents: read
       pages: write
@@ -25,4 +28,5 @@ jobs:
     needs: [prepare]
     steps:
       - name: Deployment
+        id: deploy-step
         uses: actions/deploy-pages@v4
