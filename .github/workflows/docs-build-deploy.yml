@@ -29,7 +29,7 @@ jobs:
           rm index.html
           mv index-tmp index.html
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: index
           path: _site
@@ -46,7 +46,7 @@ jobs:
           cd c-cpp
           docker run --rm -v ./:/github/workspace -w /github/workspace ghcr.io/doxygen/doxygen:Release_1_15_0
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: build-doxygen
           path: c-cpp/doxygen/html/
@@ -67,7 +67,7 @@ jobs:
           cd javascript
           jsdoc -p -d jsdoc/ index.md ./
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: build-jsdoc
           path: javascript/jsdoc/
@@ -86,7 +86,7 @@ jobs:
           cd javascript
           deno doc --html --name="My Project" --output="denodoc" --private *.js
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: build-denodoc
           path: javascript/denodoc/
@@ -110,7 +110,7 @@ jobs:
           sphinx-apidoc -f -P -o ./ ../
           sphinx-build ./ ./_build/
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: build-sphinx
           path: python/sphinx/_build/
@@ -147,7 +147,7 @@ jobs:
           name: build-sphinx
           path: sphinx
       - name: Upload finally artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: finally-artifact
           path: .
