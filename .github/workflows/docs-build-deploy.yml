@@ -122,27 +122,27 @@ jobs:
     needs: [build-index, build-doxygen, build-jsdoc, build-denodoc, build-sphinx]
     steps:
       - name: Place artifact - index
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: index
           path: .
       - name: Place artifact - Doxygen
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: build-doxygen
           path: doxygen
       - name: Place artifact - JSDoc
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: build-jsdoc
           path: jsdoc
       - name: Place artifact - Deno Doc
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: build-denodoc
           path: denodoc
       - name: Place artifact - Sphinx
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: build-sphinx
           path: sphinx
@@ -167,7 +167,7 @@ jobs:
     needs: [artifact-gathering]
     steps:
       - name: Place gathered artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: finally-artifact
           path: .
