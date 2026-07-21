@@ -175,7 +175,7 @@ jobs:
       # Deploy for main branch (as production) and pull request (as preview)
       - name: Deploy to Cloudflare Pages
         id: deploy-step
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
