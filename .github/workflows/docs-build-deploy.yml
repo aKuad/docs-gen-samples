@@ -59,7 +59,7 @@ jobs:
       - name: Source checkout
         uses: actions/checkout@v7
       - name: Setup environment (1)
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
       - name: Setup environment (2)
         run: sudo npm install -g jsdoc
       - name: Build
